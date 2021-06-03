@@ -1,5 +1,5 @@
 //Тоглогчийн ээлжийг хадгалах хувьсагч ,нэгдүгээр тоглогчийг A ,хоёрдугаар тоглогчийг Bгэж тэмдэглэе
-var activePlayer = 1;
+var activePlayer = 0;
 //Тоглогчийн цуглуулсан оноог хадгалах хувьсагч
 var score = [0,0];
 //Тоглогчийн ээлжиндээ цуглуулж байгаа оноог хадгалах хуьсагч
@@ -33,16 +33,37 @@ diceDom.style.display="none";
 document.getElementById("current-0").textContent="0";
 document.getElementById("current-1").textContent="0";
 //document.querySelector('#current-1').textContent=0;
-//Товч хийх
+//Товч хийх шоо шидэх  эвент листенер
+
 document.querySelector(".btn-roll").addEventListener("click",function ()
 {
+    //1-ээс 6 хүртэл санамсаргүй тоо буулгах
     var diceNumber = Math.floor(Math.random()*6+1);
+    //Шоо зураг гаргаж ирнэ
     diceDom.style.display="block";
+//Буусан санамсаргүй тоонд харгалзах шооны зургийг харуулна
     diceDom.src="dice-"+diceNumber+".png";
+    //Буусан  тоо нэгээс ялгаатай бол  идэвхтэй тоглогчийн оноог  нэмэгдүүлнэ
     if(diceNumber!==1)
     {
-        
+        //1 ээс ялгаатай тоо буулаа
+        roundScore=roundScore+diceNumber;
+        document.getElementById("current-"+activePlayer).textContent=roundScore;
     }
+    else
+    {
+        //Тоглогчийн ээлжийг солих
+        if(activePlayer===0)
+        {
+            activePlayer=1;
+        }
+        else
+        {
+            activePlayer=0;
+        }
+         
+    }
+
     
 });
 
