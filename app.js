@@ -52,18 +52,19 @@ document.querySelector(".btn-roll").addEventListener("click",function ()
     }
     else
     {
+        roundScore=0;
+        //нэг ээлжинд олсон оноог 0 болгож өөрчиднө
+        document.getElementById("current-"+activePlayer).textContent=0;
         //Тоглогчийн ээлжийг солих
-        if(activePlayer===0)
-        {
-            activePlayer=1;
-        }
-        else
-        {
-            activePlayer=0;
-        }
-         
+        activePlayer===0?(activePlayer=1):(activePlayer =0);
+        
+       // Улаан цэгийг шилжүүлэх
+       document.querySelector(".player-0-panel").classList.toggle("active");
+       document.querySelector(".player-1-panel").classList.toggle("active");
+       // Шоог түр алга болгох
+       diceDom.style.display="none";
     }
 
     
 });
-
+x   
