@@ -1,6 +1,6 @@
 
-//Шооны алт талаараа буусныг хадгалах хувьсагч хэрэгтэй , 1-6 гэсэн утгыг энэ хувьсагчид снамсаргүйгээр үүсгэж өгнө.
-
+    //Шооны алт талаараа буусныг хадгалах хувьсагч хэрэгтэй , 1-6 гэсэн утгыг энэ хувьсагчид снамсаргүйгээр үүсгэж өгнө.
+var isGameOver;
 // <div class="player-score" id="score-0">43</div>
 
 // HTML Хандах :
@@ -19,7 +19,7 @@ var activePlayer,score,roundScore;
 var diceDom = document.querySelector(".dice");
 function initGame()
 {
-
+    isGameOver=true;
     //Тоглогчийн ээлжийг хадгалах хувьсагч ,нэгдүгээр тоглогчийг A ,хоёрдугаар тоглогчийг Bгэж тэмдэглэе
  activePlayer = 0;
 //Тоглогчийн цуглуулсан оноог хадгалах хувьсагч
@@ -47,6 +47,8 @@ document.getElementById('name-0').textContent='Player 2';
 
 document.querySelector(".btn-roll").addEventListener("click",function ()
 {
+    if(isGameOver===true)
+    {
     //1-ээс 6 хүртэл санамсаргүй тоо буулгах
     var diceNumber = Math.floor(Math.random()*6+1);
     //Шоо зураг гаргаж ирнэ
@@ -65,7 +67,7 @@ document.querySelector(".btn-roll").addEventListener("click",function ()
         switchNextplayer();
     }
 
-    
+}
 });
 //Hold товч 
 document.querySelector(".btn-hold").addEventListener("click",function()
@@ -78,6 +80,7 @@ document.querySelector(".btn-hold").addEventListener("click",function()
     // Toglogch hojson esehiig shalgah
     if(score[activePlayer]>=100)
     {
+        isGameOver=false;
         // Yalagchiin nernii orond yalsan bichig
         document.getElementById('name-'+activePlayer).textContent='Winner';
     }
@@ -104,4 +107,4 @@ function switchNextplayer()
 }
 
 // Shineer ehluuleh
-document.querySelector('.btn-new').addEventListener('click',initGame);
+document.querySelector('.btn-new').addEventListener('click',initGame());
