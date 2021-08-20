@@ -1,5 +1,5 @@
 // Тоглогчийн ээлжийг халгалах хувьсагч  нэгдүгээр тоглогчийг 0, хоёрдугаар тоглогчийг 2
-var activePlayer=0;
+var activePlayer=1;
 
 // Тоглогчийн ээлжинд 
 var score=[0,0];
@@ -22,7 +22,26 @@ document.querySelector(".btn-roll").addEventListener('click',function(){// dice 
     // Shoog buusan toogoor ni haruulah
     DiceDom.style.display="block";
     DiceDom.src = "dice-"+diceNumber + ".png";
+    if(diceNumber!==1)
+    {
+        roundScore=roundScore+diceNumber;
+        document.getElementById("current-"+activePlayer).textContent=roundScore;
+    }
+    else
+    {
+        document.getElementById("current-"+activePlayer).textContent=0;
+        // Нэг буусан тохиолдолд тоглогчийн ээлжийг солино
+        if(activePlayer===0)
+        {
+            activePlayer=1;
+        }
+        else
+        {
+            activePlayer=0;
+        }
+    }
     });
+
 
 
 
