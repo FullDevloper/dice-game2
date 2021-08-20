@@ -17,7 +17,8 @@ var DiceDom=document.querySelector(".dice");
 
 DiceDom.style.display="none";
 // Btn roll eventtei holboj ajluulah
-document.querySelector(".btn-roll").addEventListener('click',function(){// dice ali talaaraa 1-6 hurtel uusgeh
+document.querySelector(".btn-roll").addEventListener('click',function(){
+    // dice ali talaaraa 1-6 hurtel uusgeh
     var diceNumber=Math.floor(Math.random()*6)+1;
     // Shoog buusan toogoor ni haruulah
     DiceDom.style.display="block";
@@ -29,7 +30,49 @@ document.querySelector(".btn-roll").addEventListener('click',function(){// dice 
     }
     else
     {
+       SwitchNextPlayer();
+    }
+    });
+    // Hold evenlist 
+    document.querySelector('.btn-hold').addEventListener('click',function(){
+        //Уг тоглогчийн цуглуулссан оноог глобалд нэмж өгнө.
+    //     if(activePlayer===0)
+        // {
+            //score[0]=score[0]+roundScore;
+        //}
+        //else
+        
+        //    score[1]=score[1]+roundScore;
+        score[activePlayer]=score[activePlayer]+roundScore;
+       //score[activePlayer]=score[activePlayer]+roundScore;
+       document.getElementById('score-'+activePlayer).textContent=score[activePlayer];
+        // тоглогчийн ээлжийг солих ) болгох
+        // Ялагчийг олох
+        if(score[activePlayer]>=20)
+        {
+            document.getElementById('name-'+activePlayer).textContent="Winner !!!";
+            document.querySelector(".player-"+activePlayer+"-panel").classList.add("winner");
+            document.querySelector(".player-"+activePlayer+"-panel").classList.remove("active");
+            
+
+        }
+        else
+        {
+            SwitchNextPlayer();
+        }
+     
+     
+        
+    });
+    function SwitchNextPlayer()
+    {
+        
+          
+        roundScore=0;
         document.getElementById("current-"+activePlayer).textContent=0;
+        DiceDom.style.display="none";
+        document.querySelector(".player-0-panel").classList.toggle("active"); 
+        document.querySelector(".player-1-panel").classList.toggle("active");
         // Нэг буусан тохиолдолд тоглогчийн ээлжийг солино
         if(activePlayer===0)
         {
@@ -40,8 +83,8 @@ document.querySelector(".btn-roll").addEventListener('click',function(){// dice 
             activePlayer=0;
         }
     }
-    });
 
 
-
+    //Тоглоомыг шинээр эхлүүлэх эвент листенер
+    
 
