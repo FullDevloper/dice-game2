@@ -1,10 +1,22 @@
-// Тоглогчийн ээлжийг халгалах хувьсагч  нэгдүгээр тоглогчийг 0, хоёрдугаар тоглогчийг 2
-var activePlayer=1;
+
+var activePlayer;
+var roundScore;
+var score;
+var DiceDom=document.querySelector(".dice");
+// Тоглоомын төлөвийг өөрчлөх функц
+var isGameOver;
+// Togloomiig ehluullee
+initGame();
+function initGame()
+{
+    isGameOver=false;
+    // Тоглогчийн ээлжийг халгалах хувьсагч  нэгдүгээр тоглогчийг 0, хоёрдугаар тоглогчийг 2
+activePlayer=0;
 
 // Тоглогчийн ээлжинд 
-var score=[0,0];
+score=[0,0];
 // Тоглогчийн ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
-var roundScore=0;
+roundScore=0;
 
 
 // Тоглогчийн оноог солих 
@@ -13,12 +25,24 @@ document.getElementById("score-0").textContent="0";
 document.getElementById("score-1").textContent="0";
 document.getElementById("current-0").textContent="0";
 document.getElementById("current-1").textContent="0";
-var DiceDom=document.querySelector(".dice");
-
+document.getElementById('name-0').textContent="Player 1";
+document.getElementById('name-1').textContent="Player 2";
+document.querySelector('.player-0-panel ').classList.remove('winner');
+document.querySelector('.player-1-panel ').classList.remove('winner');
+// active toggle ustgah
+document.querySelector('.player-0-panel').classList.remove('active');
+document.querySelector('.player-1-panel').classList.remove('active');
+// ehnii toglogch active bolgoh
+document.querySelector('.player-0-panel').classList.add('active');
 DiceDom.style.display="none";
+}
+
+
 // Btn roll eventtei holboj ajluulah
 document.querySelector(".btn-roll").addEventListener('click',function(){
-    // dice ali talaaraa 1-6 hurtel uusgeh
+    if(isGameOver!==true)
+    {
+        // dice ali talaaraa 1-6 hurtel uusgeh
     var diceNumber=Math.floor(Math.random()*6)+1;
     // Shoog buusan toogoor ni haruulah
     DiceDom.style.display="block";
@@ -31,6 +55,7 @@ document.querySelector(".btn-roll").addEventListener('click',function(){
     else
     {
        SwitchNextPlayer();
+    }
     }
     });
     // Hold evenlist 
@@ -50,6 +75,7 @@ document.querySelector(".btn-roll").addEventListener('click',function(){
         // Ялагчийг олох
         if(score[activePlayer]>=20)
         {
+            isGameOver=true;
             document.getElementById('name-'+activePlayer).textContent="Winner !!!";
             document.querySelector(".player-"+activePlayer+"-panel").classList.add("winner");
             document.querySelector(".player-"+activePlayer+"-panel").classList.remove("active");
@@ -86,5 +112,4 @@ document.querySelector(".btn-roll").addEventListener('click',function(){
 
 
     //Тоглоомыг шинээр эхлүүлэх эвент листенер
-    
-
+    document.querySelector('.btn-new').addEventListener('click',initGame);
